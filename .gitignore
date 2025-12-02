@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# Data files (용량이 크면 제외)
+data/wordnet_word_data.json
+data/grammar_train.csv
+data/grammar_valid.csv
+data/cambridge_final_results_cleaned.json
+data/vocab_data.json
+models/t5-grammar-small/
+
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,31 @@
+{
+  "session_id": "session_001",
+  "created_at": "2025-12-02T10:42:44.895680",
+  "messages": [
+    {
+      "role": "user",
+      "text": "What is Inflation?"
+    },
+    {
+      "role": "assistant",
+      "text": "Word: Inflation\nPart of Speech: noun\nDefinition: A general, continuous increase in the level of prices for goods and services in an economy over time.\n\nExamples:\n1. The government is concerned about high inflation impacting household budgets.\n2. Central banks aim to control inflation to maintain economic stability.\n\nSynonyms: None"
+    },
+    {
+      "role": "user",
+      "text": "Can you fix my grammar: A inflation are small"
+    },
+    {
+      "role": "assistant",
+      "text": "Original: A inflation are small  \nCorrected: An inflation is small.  \n\nExplanation:\n1. Error Type: Determiner/article misuse and subject-verb agreement error.\n2. Why wrong: \"A\" can't precede uncountable \"inflation\"; plural \"are\" doesn't match singular subject \"inflation.\"\n3. Correct Rule: Use definite article \"the\" with specific uncountable nouns; singular subjects require singular verbs (\"is\")."
+    },
+    {
+      "role": "user",
+      "text": "fix the grammar: I are an boy"
+    },
+    {
+      "role": "assistant",
+      "text": "Original: I are an boy  \nCorrected: I am a boy.  \n\nExplanation:  \n1. Error Type: Subject-verb agreement and incorrect article usage.  \n2. Why wrong: \"I\" requires the verb \"am,\" not \"are.\" \"A\" is used before consonant sounds, not \"an.\"  \n3. Correct Rule: \"I\" pairs with \"am\"; use \"a\" before words starting with consonant sounds."
+    }
+  ],
+  "title": "What is Inflation?"
+}

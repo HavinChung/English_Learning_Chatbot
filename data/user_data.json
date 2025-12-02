@@ -1,0 +1,370 @@
+{
+  "user_id": "default_user",
+  "created_at": "2025-12-02T04:48:54.325045",
+  "profile": {
+    "vocab_weakness": [
+      "omit",
+      "postindustrial"
+    ],
+    "grammar_patterns": [
+      "article misuse (a/an)",
+      "subject-verb agreement"
+    ],
+    "common_mistakes": [
+      "Incorrect: 'An ketchup are good' → Correct: 'Ketchup is good'"
+    ],
+    "overall_skill": "Intermediate (understands academic concepts but struggles with basic grammar)"
+  },
+  "quiz_history": [
+    {
+      "timestamp": "2025-12-02T10:44:36.326868",
+      "questions": [
+        {
+          "question": "Which word completes this greeting: 'Hello, how ___ you?'",
+          "choices": [
+            "am",
+            "is",
+            "isn't",
+            "are"
+          ],
+          "correct": 3,
+          "user_answer": 3,
+          "is_correct": true,
+          "explanation": "'Are' is the correct form to use with 'you' in present simple tense."
+        },
+        {
+          "question": "Choose the correct preposition: 'I have breakfast ___ the morning.'",
+          "choices": [
+            "at",
+            "on",
+            "in",
+            "by"
+          ],
+          "correct": 2,
+          "user_answer": 2,
+          "is_correct": true,
+          "explanation": "We use 'in' for parts of the day like morning/afternoon/evening."
+        },
+        {
+          "question": "Which verb fits: 'She ___ to school every day.'",
+          "choices": [
+            "go",
+            "going",
+            "goes",
+            "went"
+          ],
+          "correct": 2,
+          "user_answer": 1,
+          "is_correct": false,
+          "explanation": "'Goes' is correct for third-person singular (she/he) in present simple."
+        },
+        {
+          "question": "Complete the sentence: 'There are three ___ on the table.'",
+          "choices": [
+            "book",
+            "bookes",
+            "books",
+            "bookies"
+          ],
+          "correct": 2,
+          "user_answer": 3,
+          "is_correct": false,
+          "explanation": "Regular plurals add -s (book → books)."
+        },
+        {
+          "question": "What's the opposite of 'big'?",
+          "choices": [
+            "large",
+            "heavy",
+            "small",
+            "tall"
+          ],
+          "correct": 2,
+          "user_answer": 0,
+          "is_correct": false,
+          "explanation": "'Small' is the direct opposite of 'big' for size."
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-02T11:03:47.914115",
+      "questions": [
+        {
+          "question": "Which sentence is correct?",
+          "choices": [
+            "Inflation is rising",
+            "A inflation is rising",
+            "Inflations are rising",
+            "Small inflation is rising"
+          ],
+          "correct": 0,
+          "user_answer": 2,
+          "is_correct": false,
+          "explanation": "Correct because 'inflation' is an uncountable noun requiring no article and singular verbs."
+        },
+        {
+          "question": "We say '_______ inflation is good for the economy'",
+          "choices": [
+            "Low",
+            "Small",
+            "A low",
+            "Smaller"
+          ],
+          "correct": 0,
+          "user_answer": 2,
+          "is_correct": false,
+          "explanation": "Correct because 'low' is the proper adjective used with economic terms like inflation."
+        },
+        {
+          "question": "Choose the right sentence:",
+          "choices": [
+            "The money is on the table",
+            "A money is on the table",
+            "The moneys are on the table",
+            "Moneys is on the table"
+          ],
+          "correct": 0,
+          "user_answer": 2,
+          "is_correct": false,
+          "explanation": "Correct because 'money' is uncountable and doesn't use 'a' or plural forms."
+        },
+        {
+          "question": "Complete: 'The price of food _______ increasing'",
+          "choices": [
+            "is",
+            "are",
+            "am",
+            "were"
+          ],
+          "correct": 0,
+          "user_answer": 0,
+          "is_correct": true,
+          "explanation": "Correct because singular subject 'price' needs singular verb 'is'."
+        },
+        {
+          "question": "Which is proper English?",
+          "choices": [
+            "The economy is growing",
+            "An economy is growing",
+            "The economy are growing",
+            "Economy is growing"
+          ],
+          "correct": 0,
+          "user_answer": 0,
+          "is_correct": true,
+          "explanation": "Correct because 'economy' as specific noun needs 'the' and singular verb."
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-02T11:39:58.779655",
+      "questions": [
+        {
+          "question": "Fill the blank: He goes to ___ university near Tokyo.",
+          "choices": [
+            "a",
+            "an",
+            "the",
+            "their"
+          ],
+          "correct": 0,
+          "user_answer": 0,
+          "is_correct": true,
+          "explanation": "Use 'a' before consonant sounds like the 'y' in 'university'."
+        },
+        {
+          "question": "Choose the correct form: The dog ___ loudly every night.",
+          "choices": [
+            "bark",
+            "barks",
+            "barking",
+            "are barking"
+          ],
+          "correct": 1,
+          "user_answer": 0,
+          "is_correct": false,
+          "explanation": "'Dog' is singular and requires the -s ending for present simple tense."
+        },
+        {
+          "question": "Complete the sentence: I ___ tired after work.",
+          "choices": [
+            "am",
+            "is",
+            "are",
+            "be"
+          ],
+          "correct": 0,
+          "user_answer": 0,
+          "is_correct": true,
+          "explanation": "'I' always pairs with 'am' in present simple tense."
+        },
+        {
+          "question": "Select the right verb: Inflation ___ rising quickly.",
+          "choices": [
+            "are",
+            "is",
+            "have",
+            "were"
+          ],
+          "correct": 1,
+          "user_answer": 0,
+          "is_correct": false,
+          "explanation": "'Inflation' is a singular subject needing a singular verb ('is')."
+        },
+        {
+          "question": "Fill the blank: She bought ___ umbrella for rainy days.",
+          "choices": [
+            "a",
+            "an",
+            "the",
+            "some"
+          ],
+          "correct": 1,
+          "user_answer": 0,
+          "is_correct": false,
+          "explanation": "Use 'an' before vowel sounds like 'u' in 'umbrella'."
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-02T12:40:41.783434",
+      "questions": [
+        {
+          "question": "Which is correct? 'I need ___ pen for my homework.'",
+          "choices": [
+            "a",
+            "an",
+            "- (no article)",
+            "the"
+          ],
+          "correct": 0,
+          "user_answer": 0,
+          "is_correct": true,
+          "explanation": "'A' is used before consonant sounds like 'p' in 'pen'."
+        },
+        {
+          "question": "Complete the sentence: 'Ketchup ___ my favorite condiment.'",
+          "choices": [
+            "are",
+            "is",
+            "were",
+            "be"
+          ],
+          "correct": 1,
+          "user_answer": 1,
+          "is_correct": true,
+          "explanation": "'Ketchup' is singular, so it requires 'is'."
+        },
+        {
+          "question": "Choose the correct article: 'She bought ___ umbrella for rainy days.'",
+          "choices": [
+            "a",
+            "an",
+            "the",
+            "-"
+          ],
+          "correct": 1,
+          "user_answer": 1,
+          "is_correct": true,
+          "explanation": "'An' is used before vowel sounds like 'u' in 'umbrella'."
+        },
+        {
+          "question": "Which verb fits: 'The books ___ on the table.'",
+          "choices": [
+            "is",
+            "am",
+            "are",
+            "be"
+          ],
+          "correct": 2,
+          "user_answer": 2,
+          "is_correct": true,
+          "explanation": "'Books' is plural, so 'are' is the correct plural verb."
+        },
+        {
+          "question": "Fix the error: 'He wants an banana.'",
+          "choices": [
+            "He wants a banana.",
+            "He wants the banana.",
+            "He wants banana.",
+            "He want a banana."
+          ],
+          "correct": 0,
+          "user_answer": 0,
+          "is_correct": true,
+          "explanation": "'A' is used before 'banana' because 'b' is a consonant sound."
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-02T12:42:36.099434",
+      "questions": [
+        {
+          "question": "Many cities have transitioned to ___ economies focused on technology rather than manufacturing.",
+          "choices": [
+            "preindustrial",
+            "postindustrial",
+            "antindustrial",
+            "subindustrial"
+          ],
+          "correct": 1,
+          "user_answer": 1,
+          "is_correct": true,
+          "explanation": "Postindustrial correctly describes economies shifting away from traditional industries."
+        },
+        {
+          "question": "She received ___ honorable mention in the competition.",
+          "choices": [
+            "a",
+            "an",
+            "the",
+            "omit article"
+          ],
+          "correct": 1,
+          "user_answer": 1,
+          "is_correct": true,
+          "explanation": "Use 'an' before vowel sounds like the silent 'h' in 'honorable'."
+        },
+        {
+          "question": "The list of requirements ___ updated every semester.",
+          "choices": [
+            "is",
+            "are",
+            "were",
+            "have"
+          ],
+          "correct": 0,
+          "user_answer": 1,
+          "is_correct": false,
+          "explanation": "Singular subject 'list' requires singular verb 'is'."
+        },
+        {
+          "question": "Would you please ___ paragraph three from your final draft?",
+          "choices": [
+            "emit",
+            "vomit",
+            "submit",
+            "omit"
+          ],
+          "correct": 3,
+          "user_answer": 3,
+          "is_correct": true,
+          "explanation": "Omit means to leave out or exclude intentionally."
+        },
+        {
+          "question": "Neither of the proposals ___ suitable for our budget.",
+          "choices": [
+            "is",
+            "are",
+            "were",
+            "have"
+          ],
+          "correct": 0,
+          "user_answer": 1,
+          "is_correct": false,
+          "explanation": "Singular subject 'Neither' requires singular verb 'is'."
+        }
+      ]
+    }
+  ]
+}

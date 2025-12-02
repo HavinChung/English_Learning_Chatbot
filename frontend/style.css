@@ -1,0 +1,393 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+}
+
+.top-bar {
+    background: #0ea37f;
+    padding: 16px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.tab-btn {
+    background: rgba(255,255,255,0.3);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background: white;
+    color: #0ea37f;
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+.sidebar {
+    width: 260px;
+    background: #efefef;
+    padding: 20px;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+}
+
+.new-chat-btn {
+    width: 100%;
+    padding: 10px;
+    background: #0ea37f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.session-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.session-item {
+    padding: 12px;
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.session-item.active {
+    background: #c5f5e4;
+}
+
+.session-title {
+    font-size: 16px;
+}
+
+.delete-session-btn {
+    border: none;
+    background: transparent;
+    color: #888;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.main {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.chat-box {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    height: calc(100vh - 180px);
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+.message.user {
+    background: #d8f7e8;
+    margin-left: auto;
+}
+
+.message.assistant {
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+.chat-input-area {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.send-btn {
+    background: #0ea37f;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.loading-bubble {
+    display: flex;
+    gap: 4px;
+    padding: 10px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background: #aaa;
+    border-radius: 50%;
+    animation: blink 1.4s infinite;
+}
+
+.dot:nth-child(2) { animation-delay: 0.2s }
+.dot:nth-child(3) { animation-delay: 0.4s }
+
+@keyframes blink {
+    0% { opacity: 0.2 }
+    20% { opacity: 1 }
+    100% { opacity: 0.2 }
+}
+
+/* Quiz Start Screen */
+.quiz-start-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 400px;
+}
+
+.quiz-welcome {
+    text-align: center;
+    background: white;
+    padding: 60px 80px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.quiz-welcome h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    color: #0ea37f;
+}
+
+.quiz-welcome p {
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Quiz Loading */
+.quiz-loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-height: 400px;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #0ea37f;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.quiz-loading-container .loading-text {
+    font-size: 22px;
+    color: #0ea37f;
+    font-weight: 500;
+}
+
+/* Quiz */
+
+.hidden {
+    display: none;
+}
+
+.quiz-main-btn {
+    padding: 14px 32px;
+    background: #0ea37f;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 0;
+    transition: background 0.3s;
+}
+
+.quiz-main-btn:hover {
+    background: #0c8a6a;
+}
+
+.loading-text {
+    font-size: 22px;
+    padding: 20px;
+}
+
+.quiz-progress {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.quiz-card {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    white-space: pre-line;
+    font-size: 20px;
+}
+
+.quiz-card em {
+    color: #333;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.quiz-card .quiz-main-btn {
+    margin-top: 10px;
+}
+
+.choices-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.choices-row.hidden {
+    display: none;
+}
+
+.quiz-choice-btn {
+    flex: 1;
+    padding: 18px;
+    background: white;
+    border-radius: 12px;
+    border: 2px solid #0ea37f;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.quiz-choice-btn:hover {
+    background: #eafff6;
+}
+
+#review-view {
+    padding: 20px 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#review-view h2 {
+    font-size: 36px;
+    color: #0ea37f;
+    margin-bottom: 10px;
+    margin-top: 0;
+    font-weight: bold;
+}
+
+
+#review-view .subtitle {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+#review-list {
+    padding: 0;
+}
+
+#review-list .empty-state {
+    background: white;
+    padding: 60px 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+#review-list .empty-state-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+#review-list .empty-state p {
+    font-size: 20px;
+    color: #888;
+    margin-bottom: 30px;
+}
+
+#review-list .empty-state button {
+    background: #0ea37f;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#review-list .empty-state button:hover {
+    background: #0c8a6a;
+}
+
+#review-list .quiz-main-btn {
+    margin-bottom: 20px;
+}
+
+#review-list h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#review-list ol {
+    margin: 10px 0;
+    padding-left: 30px;
+}
+
+#review-list ol li {
+    margin: 5px 0;
+}
+
+#review-list .quiz-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#review-list .quiz-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
