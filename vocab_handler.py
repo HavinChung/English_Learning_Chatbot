@@ -2,9 +2,10 @@ import re
 from vocab_store import VocabStore
 from client import call_llm
 
+# Load vocab database on module import
 store = VocabStore("data/vocab_data.json")
 
-
+# Extract target word from question (quotes take priority)
 def extract_vocab_target(user_input: str):
     text = user_input.strip()
     lower = text.lower()
@@ -30,7 +31,7 @@ def extract_vocab_target(user_input: str):
 
     return None
 
-
+# Prompt that enforces structured vocabulary explanation format
 SYSTEM_PROMPT_VOCAB = """
 You are an English vocabulary tutor. Use this exact format:
 
@@ -49,17 +50,22 @@ Rules: No markdown, no phonetics, no translations. Fill all fields.
 
 
 def find_vocab_entries(target: str):
-    key = target.lower()
-    entries = store.index_by_word.get(key)
-    if entries:
-        return entries
-    return store.search_substring(key)
+    return store.smart_search(target)
 
-
+# Pick best entry: highest similarity score, or common POS (noun/verb), or first
 def extract_best_entry(entries):
     if not entries:
         return None
+    
+    scored_entries = []
+    for e in entries:
+        if "similarity_score" in e:
+            scored_entries.append(e)
 
+    if scored_entries:
+        scored_entries.sort(key=lambda x: x["similarity_score"], reverse=True)
+        return scored_entries[0]
+    
     priority = ["noun", "verb", "adjective", "adverb"]
     
     for pos_type in priority:
@@ -70,7 +76,7 @@ def extract_best_entry(entries):
     
     return entries[0]
 
-
+# Search dictionary and generate formatted explanation with LLM
 def handle_vocab_core(user_input: str, target: str) -> str:
     entries = find_vocab_entries(target)
 
@@ -81,6 +87,14 @@ def handle_vocab_core(user_input: str, target: str) -> str:
     entry = extract_best_entry(entries)
     examples = entry.get("examples", [])
     synonyms = entry.get("synonyms", [])
+    
+    similarity_note = ""
+
+    if "similarity_score" in entry:
+        score = entry["similarity_score"]
+
+        if score < 1.0 and target.lower() != entry["word"].lower():
+            similarity_note = f"\n\n(Note: Showing '{entry['word']}' as a related word to '{target}')"
 
     prompt = f"""
 Target: {target}
@@ -90,7 +104,7 @@ POS: {entry.get("pos", "N/A")}
 Definition: {entry.get("definition", "N/A")}
 Example1: {examples[0] if examples else "N/A"}
 Example2: {examples[1] if len(examples) > 1 else "N/A"}
-Synonyms: {", ".join(synonyms) if synonyms else "None"}
+Synonyms: {", ".join(synonyms) if synonyms else "None"}{similarity_note}
 """
 
     return call_llm(SYSTEM_PROMPT_VOCAB, prompt)

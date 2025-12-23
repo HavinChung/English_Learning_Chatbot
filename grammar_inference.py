@@ -1,25 +1,29 @@
 import torch
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 
+# Fine-tuned T5 model for grammar correction
 MODEL_PATH = "models/t5-grammar-small"
 
-_tokenizer = None
-_model = None
+# Lazy loading to avoid loading on import
+tokenizer = None
+model = None
 
+# Load model only once when first needed
 def load_model():
-    global _tokenizer, _model
+    global tokenizer, model
 
-    if _tokenizer is None or _model is None:
-        _tokenizer = T5Tokenizer.from_pretrained(MODEL_PATH)
-        _model = T5ForConditionalGeneration.from_pretrained(MODEL_PATH)
-        _model.eval()
+    if tokenizer is None or model is None:
+        tokenizer = T5Tokenizer.from_pretrained(MODEL_PATH)
+        model = T5ForConditionalGeneration.from_pretrained(MODEL_PATH)
+        model.eval()
 
-    return _tokenizer, _model
+    return tokenizer, model
 
-
+# Correct grammar using T5 model with beam search
 def correct_grammar(sentence: str) -> str:
     tokenizer, model = load_model()
 
+    # T5 expects task prefix
     input_text = "grammar: " + sentence
 
     inputs = tokenizer.encode(

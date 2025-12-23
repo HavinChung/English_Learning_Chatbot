@@ -2,6 +2,7 @@ import re
 from grammar_inference import correct_grammar
 from client import call_llm
 
+# Prompt that enforces structured grammar explanation format
 SYSTEM_PROMPT_GRAMMAR = """
 You are a grammar tutor. Follow this EXACT format:
 
@@ -16,7 +17,7 @@ Explanation:
 No extra notes/examples.
 """
 
-
+# Regex patterns to detect grammar correction requests
 GRAMMAR_PATTERNS = [
     r"correct the grammar[: ]+(.+)",
     r"correct my sentence[: ]+(.+)",
@@ -30,7 +31,7 @@ GRAMMAR_PATTERNS = [
     r"please fix[: ]+(.+)",
 ]
 
-
+# Extract target sentence from user input (quotes take priority)
 def extract_grammar_target(user_input: str) -> str:
     text = user_input.strip()
 
@@ -47,7 +48,7 @@ def extract_grammar_target(user_input: str) -> str:
     
     return text
 
-
+# Correct sentence using model and generate explanation
 def handle_grammar_core(original_sentence: str) -> str:
     corrected = correct_grammar(original_sentence)
 

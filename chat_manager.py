@@ -2,6 +2,7 @@ import os
 import json
 from datetime import datetime
 
+# Store chat sessions as JSON files
 SESSIONS_DIR = "data/sessions"
 os.makedirs(SESSIONS_DIR, exist_ok=True)
 
@@ -9,7 +10,7 @@ os.makedirs(SESSIONS_DIR, exist_ok=True)
 def session_path(session_id: str):
     return os.path.join(SESSIONS_DIR, f"{session_id}.json")
 
-
+# Get all sessions except quiz_session
 def list_sessions():
     sessions = []
     files = sorted(os.listdir(SESSIONS_DIR))
@@ -24,6 +25,7 @@ def list_sessions():
             with open(filepath, "r", encoding="utf-8") as f:
                 data = json.load(f)
             
+            # Skip quiz sessions
             if data["session_id"] == "quiz_session":
                 continue
 
@@ -38,7 +40,7 @@ def list_sessions():
     return sessions
 
 
-
+# Create new session with auto-generated ID if not provided
 def create_new_session(session_id: str | None = None):
     if session_id is None:
         files = [f for f in os.listdir(SESSIONS_DIR) if f.endswith(".json")]
@@ -68,7 +70,7 @@ def load_session(session_id: str):
     with open(filepath, "r", encoding="utf-8") as f:
         return json.load(f)
 
-
+# Add message to session; first user message becomes title
 def append_message(session_id: str, role: str, text: str):
     session = load_session(session_id)
     if not session:

@@ -1,7 +1,7 @@
 import json
 from client import call_llm_fast
 
-
+# System prompt that classifies user intent and extracts targets
 SYSTEM_PROMPT_INTENT = """"
 Intent analyzer for English-learning chatbot.
 
@@ -24,16 +24,19 @@ Output JSON only (no markdown/backticks):
 }
 """
 
+# Strip markdown and extract JSON object from LLM response
 def extract_json_block(text: str) -> str:
+    text = text.replace('```json', '').replace('```', '')
+    
     start_idx = text.find("{")
     end_idx = text.rfind("}")
     
     if start_idx != -1 and end_idx > start_idx:
         return text[start_idx:end_idx + 1]
     
-    return text
+    return "{}"
 
-
+# Parse user input and return intent + extracted targets
 def analyze_with_llm(user_input: str) -> dict:
     default_response = {
         "intent": "general_chat",
@@ -43,26 +46,35 @@ def analyze_with_llm(user_input: str) -> dict:
 
     try:
         raw_response = call_llm_fast(SYSTEM_PROMPT_INTENT, user_input)
+        
         json_text = extract_json_block(raw_response)
         data = json.loads(json_text)
-    except Exception:
+        
+        # Validate intent value
+        valid_intents = ["vocab_lookup", "grammar_correction", "general_chat"]
+        intent = data.get("intent", "general_chat")
+        if intent not in valid_intents:
+            intent = "general_chat"
+        
+        # Ensure targets are strings or null
+        vocab_target = data.get("vocab_target")
+        if vocab_target and not isinstance(vocab_target, str):
+            vocab_target = None
+        
+        grammar_target = data.get("grammar_target")
+        if grammar_target and not isinstance(grammar_target, str):
+            grammar_target = None
+        
+        return {
+            "intent": intent,
+            "vocab_target": vocab_target,
+            "grammar_target": grammar_target,
+        }
+    
+    except json.JSONDecodeError as e:
+        print(f"JSON parsing failed: {e}")
+        print(f"Raw response: {raw_response}")
         return default_response
-
-    # Validate and extract fields
-    intent = data.get("intent", "general_chat")
-    if not isinstance(intent, str):
-        intent = "general_chat"
-
-    vocab_target = data.get("vocab_target")
-    if vocab_target and not isinstance(vocab_target, str):
-        vocab_target = None
-
-    grammar_target = data.get("grammar_target")
-    if grammar_target and not isinstance(grammar_target, str):
-        grammar_target = None
-
-    return {
-        "intent": intent,
-        "vocab_target": vocab_target,
-        "grammar_target": grammar_target,
-    }
+    except Exception as e:
+        print(f"Intent analysis error: {e}")
+        return default_response

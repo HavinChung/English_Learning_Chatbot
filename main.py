@@ -7,8 +7,8 @@ from vocab_handler import handle_vocab, handle_vocab_with_target
 from grammar_handler import handle_grammar, handle_grammar_with_target
 from client import call_llm
 from learning_profile import build_learning_profile, record_quiz_result, record_quiz_session, get_quiz_history
-from quiz_generator import generate_personalized_quiz
 from chat_manager import list_sessions, create_new_session, load_session, append_message, delete_session
+from quiz import generate_quiz, generate_explanation
 
 app = FastAPI()
 
@@ -20,6 +20,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# API request models
 class ChatRequest(BaseModel):
     session_id: str
     message: str
@@ -27,10 +28,10 @@ class ChatRequest(BaseModel):
 class QuizAnswerRequest(BaseModel):
     choice: int
 
-
+# In-memory quiz state
 quiz_sessions = {}
 
-
+# Format quiz question for display
 def format_quiz_question(q: dict, idx: int) -> str:
     lines = [f"Q{idx}: {q['question']}"]
     for i, c in enumerate(q["choices"]):
@@ -38,6 +39,7 @@ def format_quiz_question(q: dict, idx: int) -> str:
     lines.append("")
     lines.append("Please answer with 1, 2, 3, or 4.")
     return "\n".join(lines)
+
 
 
 @app.get("/sessions")
@@ -82,6 +84,7 @@ def chat_endpoint(req: ChatRequest):
     vocab_target = analysis.get("vocab_target")
     grammar_target = analysis.get("grammar_target")
 
+    # Route to appropriate handler based on intent
     if intent == "vocab_lookup":
         answer = handle_vocab_with_target(user_input, vocab_target) if vocab_target else handle_vocab(user_input)
     elif intent == "grammar_correction":
@@ -96,6 +99,7 @@ Only correct/explain grammar when asked.
     answer = answer.strip()
     append_message(session_id, "assistant", answer)
     
+    # Invalidate profile cache every 5 messages to keep it fresh
     all_sessions = list_sessions()
     total_user_messages = 0
     
@@ -120,16 +124,27 @@ def quiz_prepare():
     profile = build_learning_profile()
     return {"status": "ready", "profile": profile}
 
+
 @app.post("/quiz/generate")
 def quiz_generate(data: dict):
-    profile = data.get("profile", data) 
-    quiz = generate_personalized_quiz(profile)
+    profile = data.get("profile", data)
     
+    # Generate 5 questions from learner profile
+    quiz = generate_quiz({"profile": profile}, 5)
+
     if not quiz:
         return {
             "progress": "-",
             "text": "I couldn't generate a quiz right now. Please try again later."
         }
+
+    # Precompute all explanations
+    for q in quiz:
+        q["explanation"] = generate_explanation(
+            q["original_sentence"], 
+            q["correct_answer"], 
+            q["topic"]
+        )
 
     quiz_sessions["active"] = {
         "questions": quiz,
@@ -139,11 +154,11 @@ def quiz_generate(data: dict):
     }
 
     first = format_quiz_question(quiz[0], 1)
-
     return {
         "progress": f"Q1/{len(quiz)}",
         "text": first
     }
+
 
 @app.post("/quiz/answer")
 def quiz_answer(req: QuizAnswerRequest):
@@ -152,7 +167,7 @@ def quiz_answer(req: QuizAnswerRequest):
         return {"done": True, "feedback": "Quiz not active"}
 
     q = session["questions"][session["current"]]
-    correct_idx = q["answer_index"]
+    correct_idx = q["correct_index"]
     is_correct = (req.choice - 1 == correct_idx)
 
     if is_correct:
@@ -162,8 +177,9 @@ def quiz_answer(req: QuizAnswerRequest):
         correct_choice = f"{correct_idx + 1}. {q['choices'][correct_idx]}"
         feedback = f"Incorrect.\nCorrect answer: {correct_choice}"
 
-    explanation = q.get("explanation", "")
-    
+    explanation = q["explanation"]
+
+    # Record answer for history
     session["answers"].append({
         "question": q["question"],
         "choices": q["choices"],
@@ -175,15 +191,14 @@ def quiz_answer(req: QuizAnswerRequest):
 
     session["current"] += 1
 
+    # Quiz completed - save results
     if session["current"] >= len(session["questions"]):
         record_quiz_session(session["answers"])
-        
         score = session["score"]
         total = len(session["questions"])
         accuracy = (score / total) * 100
-
         result = record_quiz_result(score, total)
-        
+
         return {
             "done": True,
             "feedback": feedback,
@@ -195,10 +210,11 @@ def quiz_answer(req: QuizAnswerRequest):
         }
 
     return {
-        "done": False, 
+        "done": False,
         "feedback": feedback,
         "explanation": explanation
     }
+
 
 @app.get("/quiz/next")
 def quiz_next():
@@ -214,9 +230,11 @@ def quiz_next():
         "text": format_quiz_question(q, idx)
     }
 
+
 @app.get("/quiz/history")
 def get_history():
     return {"history": get_quiz_history()}
+
 
 @app.post("/profile/invalidate")
 def invalidate_profile():

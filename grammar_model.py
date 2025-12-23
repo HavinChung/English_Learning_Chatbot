@@ -2,7 +2,7 @@ import os
 from datasets import load_from_disk
 from transformers import T5Tokenizer, T5ForConditionalGeneration, DataCollatorForSeq2Seq, TrainingArguments, Trainer
 
-# Trained over 200,000 data points of grammar correction pairs
+# Training script for T5 grammar correction model (200k+ examples)
 
 MODEL_NAME = "t5-small"
 MAX_INPUT_LENGTH = 128
@@ -20,7 +20,7 @@ def get_tokenizer_and_model():
     model = T5ForConditionalGeneration.from_pretrained(MODEL_NAME)
     return tokenizer, model
 
-
+# Add "grammar:" prefix and tokenize source/target pairs
 def preprocess_function(examples, tokenizer):
     inputs = []
 
@@ -45,7 +45,7 @@ def preprocess_function(examples, tokenizer):
     model_inputs["labels"] = labels["input_ids"]
     return model_inputs
 
-
+# Load data, tokenize, and fine-tune T5 model
 def main():
     raw_datasets = load_dataset()
 
@@ -67,6 +67,7 @@ def main():
 
     output_dir = "models/t5-grammar-small"
 
+    # Training Configurations
     training_args = TrainingArguments(
         output_dir=output_dir,
         eval_strategy="steps",

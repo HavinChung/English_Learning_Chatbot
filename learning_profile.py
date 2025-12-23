@@ -23,6 +23,14 @@ Output ONLY this JSON:
   "common_mistakes": [...],
   "overall_skill": "..."
 }
+
+Rules:
+- grammar_patterns MUST be selected ONLY from this list:
+  ["article", "sva", "tense", "preposition", "comparative", "wh"]
+- common_mistakes MUST be selected ONLY from this list:
+  ["article", "sva", "tense", "preposition", "comparative", "wh"]
+- overall_skill MUST be one of: ["Basic", "Intermediate", "Advanced"]
+
 If unsure, return empty lists and "N/A".
 """
 
@@ -31,7 +39,6 @@ def load_user_data():
         with open(USER_DATA_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     
-    # Return default data for new user
     return {
         "user_id": "default_user",
         "created_at": datetime.now().isoformat(),
